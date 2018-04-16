@@ -1,0 +1,5 @@
+class Albums{
+  constructor(albums){
+      
+  }
+}

@@ -1,0 +1,16 @@
+#main-nav {
+    position: relative;
+    background-color:rgb(255, 0, 0);
+    color: rgb(0, 0, 0);
+}
+
+.search-results {
+    width: 100%;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #fff;
+    color: #333;
+    z-index: 10;
+    border: 1px solid rgba(0,0,0,0.3);
+}
