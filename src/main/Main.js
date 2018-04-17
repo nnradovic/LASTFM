@@ -1,5 +1,6 @@
 import React, {Component, Fragment} from 'react'
 import {apiService} from './../service/ApiService'
+import Card from './Card';
 
 
 class Main extends Component{
@@ -15,21 +16,21 @@ class Main extends Component{
             this.setState({
                 artists:artistsObj
                })
-            console.log(artistsObj);
+        
           })
 
-        
-          
-    
     }
 
    render(){
-   console.log(this.state.artists);
+
    
        return(
             <Fragment>
-          <h1>MAin Page</h1>
-          { <p>{this.state.artists.map(artist=> <div> <p>{artist.name}</p> <img src={artist.image}/> </div> )}</p> }
+          <div className="container">
+          <div className="row">
+          <Card artists={this.state.artists}/>
+          </div>
+          </div>
           </Fragment>
        )
    }
