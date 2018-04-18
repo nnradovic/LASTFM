@@ -1,5 +1,0 @@
-class Albums{
-  constructor(albums){
-      
-  }
-}
