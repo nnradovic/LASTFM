@@ -21,9 +21,9 @@ class ApiService{
     
     }
 
-    getTopAlbums(artist){
+    getTopAlbums(artist, page){
 
-        return fetch( `http://ws.audioscrobbler.com//2.0/?method=artist.gettopalbums&artist=${artist}&api_key=753190c6ac1d308253bcec74d16536cb&format=json`)
+        return fetch( `http://ws.audioscrobbler.com//2.0/?method=artist.gettopalbums&artist=${artist}&api_key=753190c6ac1d308253bcec74d16536cb&format=json&limit=10&page=${page}`)
         .then(response => {
             return response.json()
         })
@@ -46,10 +46,15 @@ class ApiService{
             return response.json()
         })
         .then(songs => {
-            console.log(songs.album.tracks.track);
-            return songs.album.tracks.track.map((song) => {
+            console.log(songs);
+            let sngs = songs.album.tracks.track.map((song) => {
                 return new Songs(song);
             })
+
+            
+            
+
+            return sngs 
             
           })
         
