@@ -24,7 +24,7 @@ class Albums extends Component {
             
         })
     }
-
+   
 
 
 
