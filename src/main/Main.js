@@ -3,6 +3,7 @@ import {apiService} from './../service/ApiService'
 import Card from './Card';
 
 
+
 class Main extends Component{
    constructor(props){
        super(props)
@@ -11,24 +12,31 @@ class Main extends Component{
        }
     }
     componentDidMount() {
+      
+      
+        
         apiService.getArtist()
         .then(artistsObj => {
             this.setState({
                 artists:artistsObj
                })
+               
+            })
+            
+            
+            
+            
+        }
         
-          })
-
-    }
-
-   render(){
-
+        render(){
+            
+         
    
        return(
             <Fragment>
           <div className="container">
           <div className="row">
-          <Card artists={this.state.artists}/>
+          <Card artists={this.state.artists} />
           </div>
           </div>
           </Fragment>

@@ -22,8 +22,10 @@ export const CardBox = styled.div `
        width:320px;
        height:320px;
        backface-visibility:hidden;
+
    }
-   
+
+
    img{
     width:320px;
     height:320px;
@@ -31,11 +33,14 @@ export const CardBox = styled.div `
 
    p{
        text-align:center;
+     
    }
 
    button{
        display:block;
        margin:0 auto;
    }
+
+
 
 `

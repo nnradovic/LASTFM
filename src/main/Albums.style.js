@@ -14,6 +14,7 @@ export const AlbumBox = styled.div `
 
   .back{
       transform: rotateY(180deg);
+     
 
    }
    
@@ -33,6 +34,9 @@ export const AlbumBox = styled.div `
        text-align:center;
    }
 
-
+   .back:hover{
+       overflow:auto;
+   }
+   
 
 `

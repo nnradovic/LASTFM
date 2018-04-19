@@ -3,6 +3,9 @@ import Albums from '../enitites/Albumsent';
 import Songs from '../enitites/Songs';
 
 class ApiService{
+
+  
+
  
     getArtist(){
 
@@ -39,27 +42,41 @@ class ApiService{
     }
    
 
-    getSongs(album){
+    getSongs(artist,album){
 
-        return fetch( `http://ws.audioscrobbler.com//2.0/?method=album.getinfo&api_key=753190c6ac1d308253bcec74d16536cb&artist=Cher&album=Believe&format=json`)
+        return fetch( `http://ws.audioscrobbler.com//2.0/?method=album.getinfo&api_key=753190c6ac1d308253bcec74d16536cb&artist=${artist}&album=${album}&format=json`)
         .then(response => {
             return response.json()
         })
         .then(songs => {
-            console.log(songs);
-            let sngs = songs.album.tracks.track.map((song) => {
-                return new Songs(song);
-            })
+            console.log(typeof songs.album);
+            if( !!songs.album === false){
+               return this.getSongs(artist,album)
+                
+            }else{
+                
+                let sngs = songs.album.tracks.track.map((song) => {
+                    return new Songs(song);
+                })
+                return sngs 
+            }
 
-            
-            
 
-            return sngs 
             
           })
         
     
     }
+
+    getText(artist){
+        return fetch( `http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=Cher&api_key=753190c6ac1d308253bcec74d16536cb`)
+        .then(response => response.text())
+        .then((str) => (new window.DOMParser()).parseFromString(str, "text/xml"))
+        
+        
+  
+      
+       }
 
 
 }
