@@ -9,13 +9,15 @@ class ApiService{
  
     getArtist(){
 
-        return fetch( ' http://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&api_key=753190c6ac1d308253bcec74d16536cb&format=json')
+        return fetch( ' http://ws.audioscrobbler.com/2.0/?method=tag.gettopartists&tag=disco&api_key=753190c6ac1d308253bcec74d16536cb&format=json')
         .then(response => {
             return response.json()
+            
+            
         })
         .then(artists => {
-            // console.log(artists.artists.artist);
-            return artists.artists.artist.map((artist) => {
+            console.log(artists.topartists.artist);
+            return artists.topartists.artist.map((artist) => {
                 return new Artist(artist);
             })
             
@@ -41,9 +43,11 @@ class ApiService{
     
     }
    
-
+   
     getSongs(artist,album){
-
+    
+      console.log(artist);
+      
         return fetch( `http://ws.audioscrobbler.com//2.0/?method=album.getinfo&api_key=753190c6ac1d308253bcec74d16536cb&artist=${artist}&album=${album}&format=json`)
         .then(response => {
             return response.json()
@@ -51,6 +55,7 @@ class ApiService{
         .then(songs => {
             console.log(typeof songs.album);
             if( !!songs.album === false){
+
                return this.getSongs(artist,album)
                 
             }else{
@@ -77,7 +82,19 @@ class ApiService{
   
       
        }
-
+    getSearch(album){
+        return fetch( `http://ws.audioscrobbler.com//2.0/?method=album.search&album=${album}&api_key=753190c6ac1d308253bcec74d16536cb&format=json`)
+        .then(response => {
+            return response.json()
+        })
+        .then(albums => {
+            console.log(albums.results.albummatches.album);
+            return albums.results.albummatches.album.map((album) => {
+                return new Albums(album);
+            })
+            
+          })
+    }
 
 }
 export const  apiService = new ApiService() 
