@@ -1,6 +1,7 @@
 import Artist from './../enitites/Artist'
 import Albums from '../enitites/Albumsent';
 import Songs from '../enitites/Songs';
+import About from '../enitites/About';
 
 class ApiService{
 
@@ -16,8 +17,7 @@ class ApiService{
             
         })
         .then(artists => {
-            console.log(artists.topartists.artist);
-            return artists.topartists.artist.map((artist) => {
+            return artists.topartists.artist.slice(0,40).map((artist) => {
                 return new Artist(artist);
             })
             
@@ -46,25 +46,24 @@ class ApiService{
    
     getSongs(artist,album){
     
-      console.log(artist);
-      
+     
         return fetch( `http://ws.audioscrobbler.com//2.0/?method=album.getinfo&api_key=753190c6ac1d308253bcec74d16536cb&artist=${artist}&album=${album}&format=json`)
         .then(response => {
             return response.json()
         })
         .then(songs => {
             console.log(typeof songs.album);
-            if( !!songs.album === false){
+            // if( !!songs.album === false){
 
-               return this.getSongs(artist,album)
+            //    return this.getSongs(artist,album)
                 
-            }else{
+            // }else{
                 
                 let sngs = songs.album.tracks.track.map((song) => {
                     return new Songs(song);
                 })
                 return sngs 
-            }
+            // }
 
 
             
@@ -74,10 +73,20 @@ class ApiService{
     }
 
     getText(artist){
-        return fetch( `http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=Cher&api_key=753190c6ac1d308253bcec74d16536cb`)
+        return fetch( `http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${artist}&api_key=753190c6ac1d308253bcec74d16536cb`)
         .then(response => response.text())
         .then((str) => (new window.DOMParser()).parseFromString(str, "text/xml"))
-        
+        .then(text=>{
+            // console.log(text.childNodes[0].childNodes[0].childNodes[28].childNodes[4].innerHTML);
+            let summary = text.childNodes[0].childNodes[0].childNodes[28].childNodes[4].innerHTML
+            console.log(summary);
+             let aboutText = new About(summary)
+             return aboutText
+            
+            
+            // return new Artist(text.childNodes[0].childNodes[0].childNodes[28].childNodes[4].innerHTML).getShort()
+           
+        })
         
   
       

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./Header.css";
 import {Link} from "react-router-dom";
 
-class Header extends Component {
+class Search extends Component {
   constructor(props){
       super(props)
       this.state={
@@ -26,7 +26,7 @@ class Header extends Component {
           <div className="container">
               <Link to="/" className="navbar-brand">Last FM</Link>
               <form className="form-inline">
-                  
+                  <input className="form-control" type="search" placeholder="Search all Authors-Albums" aria-label="Search" value={this.state.search} onChange={this.handleChange}/>
                   <ul className="search-results"></ul>
               </form>
           </div>
@@ -35,4 +35,4 @@ class Header extends Component {
   }
   }
 
-export default Header;
+export default Search;
