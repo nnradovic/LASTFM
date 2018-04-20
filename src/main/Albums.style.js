@@ -1,20 +1,21 @@
 import styled from 'styled-components'
 
-export const CardBox = styled.div `
+export const AlbumBox = styled.div `
 width:320px;
 height:320px;
-background:black;
-color:red;
+background:red;
+color:black;
 transition:all 0.6s ease;
 transform-style: preserve-3d;
 &:hover{
    transform:rotateY(180deg);
    
+   
 }
 
 .back{
    transform: rotateY(180deg);
- 
+   
 
 }
 .front p{
@@ -43,12 +44,21 @@ p{
    
 }
 
+.back:hover{
+    overflow:scroll;
+   
+}
 
-   button{
-       display:block;
+.back li{
+    list-style-type: none;
+}
+
+
+a button{
+    background-color:black !important;
+    display:block;
        margin:0 auto;
-   }
+       padding:50px;
 
-
-
+}
 `
