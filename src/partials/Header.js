@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./Header.css";
 import {Link} from "react-router-dom";
-
+import logo from './Lastfm.jpg'
 class Header extends Component {
   constructor(props){
       super(props)
@@ -11,7 +11,7 @@ class Header extends Component {
   }
 
   handleChange = e => {
-    //   e.target.value
+    
     console.log(e.target.value);
     this.setState({
       search: e.target.value
@@ -19,12 +19,12 @@ class Header extends Component {
     this.props.props(e.target.value);
   };
   render(){
-    //  console.log(this.props.match.path);
+    
      
       return (
           <nav id="main-nav" className="navbar justify-content-between">
           <div className="container">
-              <Link to="/" className="navbar-brand">Last FM</Link>
+              <Link to="/" className="navbar-brand"><img src={logo} alt="LastFM"/></Link>
               <form className="form-inline">
                   
                   <ul className="search-results"></ul>

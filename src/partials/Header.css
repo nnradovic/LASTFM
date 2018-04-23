@@ -2,6 +2,7 @@
     position: relative;
     background-color:rgb(255, 0, 0);
     color: rgb(0, 0, 0);
+    margin-bottom: 30px;
 }
 
 .search-results {
@@ -13,4 +14,10 @@
     color: #333;
     z-index: 10;
     border: 1px solid rgba(0,0,0,0.3);
+}
+
+nav img{
+    width: 5rem;
+    height: 2.375rem;
+    border-radius: 5px
 }

@@ -33,7 +33,7 @@ class ApiService{
             return response.json()
         })
         .then(albums => {
-            // console.log(albums.topalbums.album);
+         
             return albums.topalbums.album.map((album) => {
                 return new Albums(album);
             })
@@ -52,18 +52,18 @@ class ApiService{
             return response.json()
         })
         .then(songs => {
-            console.log(typeof songs.album);
-            // if( !!songs.album === false){
+           
+            if( songs.error === 6){
 
-            //    return this.getSongs(artist,album)
+               return this.getSongs(artist,album)
                 
-            // }else{
+            }else{
                 
                 let sngs = songs.album.tracks.track.map((song) => {
                     return new Songs(song);
                 })
                 return sngs 
-            // }
+            }
 
 
             
@@ -77,14 +77,12 @@ class ApiService{
         .then(response => response.text())
         .then((str) => (new window.DOMParser()).parseFromString(str, "text/xml"))
         .then(text=>{
-            // console.log(text.childNodes[0].childNodes[0].childNodes[28].childNodes[4].innerHTML);
+           
             let summary = text.childNodes[0].childNodes[0].childNodes[28].childNodes[4].innerHTML
             console.log(summary);
              let aboutText = new About(summary)
              return aboutText
             
-            
-            // return new Artist(text.childNodes[0].childNodes[0].childNodes[28].childNodes[4].innerHTML).getShort()
            
         })
         

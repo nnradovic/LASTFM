@@ -3,11 +3,11 @@ import { AlbumBox } from './Albums.style';
 import { apiService } from './../service/ApiService';
 import ListSongs from './ListSongs';
 import Search from '../partials/Search';
-import Footer from '../partials/Footer';
 import Loading from './Loading'
 import { Link } from 'react-router-dom'
 import './Albums.css'
 import debounce from 'lodash/debounce'
+
 class Albums extends Component {
     constructor(props) {
         super(props)
@@ -15,11 +15,11 @@ class Albums extends Component {
             albums: [],
             page: 1,
             songs: [],
-            
-           
+
+
         }
 
-        console.log(this.props);
+
 
     }
 
@@ -31,7 +31,7 @@ class Albums extends Component {
                     album: {}
 
                 })
-                console.log(this.props.match.params.id)
+
             })
     }
 
@@ -41,14 +41,14 @@ class Albums extends Component {
             .then(albumsObj => {
                 this.setState({
                     albums: albumsObj,
-                    page: this.state.page +1,
+                    page: this.state.page + 1,
 
                 })
 
-                console.log(albumsObj);
+
             }).then(
-                window.scrollTo(0,0)
-            )            
+            window.scrollTo(0, 0)
+            )
     }
 
     componentDidUpdate() {
@@ -57,52 +57,46 @@ class Albums extends Component {
     }
 
     hoverCall = (e) => {
-        // console.log(this.props.match.params.id);
-        // console.log(e.target.id);
-        // console.log(this.state.albumsId);
 
-        console.log(e.target.getAttribute("id"));
+
 
         apiService.getSongs(this.props.match.params.id, e.target.getAttribute("id"))
             .then(songsObj => {
                 this.setState({
-                    // albumId: e.target.id,
+
                     songs: songsObj,
                 })
 
             })
-            .then(
-                e.stopPropagation()
-            )
-
+            
 
     }
-   
 
-    handleScroll = (e) => {
 
-        let contentHeight = document.body.offsetHeight
-        console.log(contentHeight);
+    // handleScroll = (e) => {
 
-        let yOffset = window.pageYOffset;
-     
+    //     let contentHeight = document.body.offsetHeight
 
-        let y = yOffset + window.innerHeight;
-        console.log(y);
 
-        if (y > contentHeight) {
-             alert("DNO STRANE")
-            return this.fetchTen()
-           
-           
-        }
+    //     let yOffset = window.pageYOffset;
 
-    }
+
+    //     let y = yOffset + window.innerHeight;
+
+
+    //     if (y > contentHeight) {
+    //         alert("DNO STRANE")
+    //         return this.fetchTen()
+
+
+    //     }
+
+    // }
     onHandleChange = debounce(((searchInput) => {
         apiService.getSearch(searchInput).then(query => {
             this.setState({
                 albums: query,
-              
+
             })
         })
     }), 1000);
@@ -110,7 +104,7 @@ class Albums extends Component {
 
 
     render() {
-        console.log(this.state.songs);
+       
         let albums = this.state.albums;
         let songs = this.state.songs;
         window.addEventListener('scroll', this.handleScroll)
@@ -119,19 +113,16 @@ class Albums extends Component {
         }
         return (
             <Fragment >
-                <Search props={this.onHandleChange}/>
+                <Search props={this.onHandleChange} />
                 <div className="container" >
                     <Link to={`/`} ><button className="btn btn-danger">Back To Author</button> </Link>
                     <div className="row">
                         {albums.map((album, index) =>
 
-                            <AlbumBox id={album.name} >
-
-                                <div className="front" id={album.name} onMouseEnter={this.hoverCall} >   <p>{album.name} </p> <img src={album.image} id={album.name} />  </div>
+                            <AlbumBox id={album.name} key={index}>
+                                <div className="front" id={album.name} onMouseEnter={this.hoverCall} key={index} >   <p>{album.name} </p> <img src={album.image} id={album.name} alt="image"/>  </div>
                                 <div className="back" id={album.name} >  <ul>
-
                                     {songs.map(song => <ListSongs props={song} />)}
-
                                 </ul>
                                 </div>
                             </AlbumBox>
