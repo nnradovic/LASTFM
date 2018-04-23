@@ -13,9 +13,6 @@ class Main extends Component {
         }
     }
     componentDidMount() {
-
-
-
         apiService.getArtist()
             .then(artistsObj => {
                 this.setState({
@@ -23,10 +20,6 @@ class Main extends Component {
                 })
 
             })
-
-
-
-
     }
   
 

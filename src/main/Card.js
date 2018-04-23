@@ -13,8 +13,6 @@ class Card extends Component {
     }
 
     onHandleHover(e) {
-    //    console.log(e.target.getAttribute("id"));
-       
         apiService.getText(e.target.getAttribute("id"))
             .then(data => {
                 if(data.about.length>300){
@@ -25,11 +23,11 @@ class Card extends Component {
                 }
             })
             .then(summary =>{
-                return summary
-                console.log(summary);
+                // return summary
                 // this.setState({
                 //     summary:summary
                 // })
+                
             })
             
         }
@@ -37,28 +35,19 @@ class Card extends Component {
 
 
     render() {
-        console.log(this.props.artists);
+   
         let artists = this.props.artists;
 
-        
         return (
-            <Fragment >
-
+            <Fragment >            
                 {artists.map((artist, index) =>
-
-                    <CardBox id={artist.name}  >
-                        
-                      
+                    <CardBox id={artist.name}  key={index}>         
                         <div className="front" onMouseEnter={this.onHandleHover} id={artist.name} >  <p> {artist.name}  Rank:{artist.rank}  </p> <img   src={artist.image} id={artist.name} /> </div>
-                        <div className=" back "  ><p> Molimo vas napravite novi GitHub repo i korisite da tamo postavite rešenje zadatka zajedno sa uputstvom za pokretanje. Takođe vas molimo da nam link ka GitHub repu pošaljete uz prijavu za posao. </p>
+                        <div className=" back "  ><p> {this.state.summary}Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce justo felis, aliquet ac posuere a, pretium et odio. Cras non sem eget turpis aliquet vulputate. Suspendisse potenti. Aliquam pulvinar nulla in velit rhoncus, sed blandit leo pellentesque. Nullam vehicula efficitur risus, nec turpis duis. </p>
                             <Link to={`/albums/${artist.name}`} ><button className="btn btn-danger">Albums</button> </Link>
                         </div>
                     </CardBox>
                 )}
-
-
-
-
             </Fragment>
         )
     }

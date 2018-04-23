@@ -4,7 +4,7 @@ import './Loading.css'
 const Loading =()=>{
 
     return(
-      <img src={load}/>
+      <img src={load} alt="Loading..."/>
     )
 }
 
