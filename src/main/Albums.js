@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { AlbumBox } from './Albums.style';
 import { apiService } from './../service/ApiService';
 import ListSongs from './ListSongs';
-import Header from '../partials/Header';
+import Search from '../partials/Search';
 import Footer from '../partials/Footer';
 import Loading from './Loading'
 import { Link } from 'react-router-dom'
@@ -15,7 +15,8 @@ class Albums extends Component {
             albums: [],
             page: 1,
             songs: [],
-            albumId: ''
+            
+           
         }
 
         console.log(this.props);
@@ -40,11 +41,14 @@ class Albums extends Component {
             .then(albumsObj => {
                 this.setState({
                     albums: albumsObj,
-                    page: this.state.page + 1,
+                    page: this.state.page +1,
 
                 })
+
                 console.log(albumsObj);
-            })
+            }).then(
+                window.scrollTo(0,0)
+            )            
     }
 
     componentDidUpdate() {
@@ -57,9 +61,9 @@ class Albums extends Component {
         // console.log(e.target.id);
         // console.log(this.state.albumsId);
 
+        console.log(e.target.getAttribute("id"));
 
-
-        apiService.getSongs(this.props.match.params.id, e.target.id)
+        apiService.getSongs(this.props.match.params.id, e.target.getAttribute("id"))
             .then(songsObj => {
                 this.setState({
                     // albumId: e.target.id,
@@ -67,27 +71,30 @@ class Albums extends Component {
                 })
 
             })
+            .then(
+                e.stopPropagation()
+            )
 
 
     }
    
 
-    handleScroll = () => {
+    handleScroll = (e) => {
 
         let contentHeight = document.body.offsetHeight
         console.log(contentHeight);
 
         let yOffset = window.pageYOffset;
-        //   console.log(window.pageYOffset);
+     
 
         let y = yOffset + window.innerHeight;
         console.log(y);
 
         if (y > contentHeight) {
-            //  alert("DNO STRANE")
-            // this.fetchTen()
-            // window.scroll(0,y-200)
-
+             alert("DNO STRANE")
+            return this.fetchTen()
+           
+           
         }
 
     }
@@ -112,7 +119,7 @@ class Albums extends Component {
         }
         return (
             <Fragment >
-                <Header props={this.onHandleChange}/>
+                <Search props={this.onHandleChange}/>
                 <div className="container" >
                     <Link to={`/`} ><button className="btn btn-danger">Back To Author</button> </Link>
                     <div className="row">

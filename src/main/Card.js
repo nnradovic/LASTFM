@@ -7,35 +7,33 @@ class Card extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            summary: []
+            summary: ' '
         }
 
     }
 
     onHandleHover(e) {
-   
-        apiService.getText()
+    //    console.log(e.target.getAttribute("id"));
+       
+        apiService.getText(e.target.getAttribute("id"))
             .then(data => {
-                // console.log(data.childNodes[0].childNodes[0].childNodes[28].childNodes[4].innerHTML)
-                // console.log(data.childNodes[0].childNodes[0].childNodes[0])
-                
-                
+                if(data.about.length>300){
+                    let new300 = data.about.slice(0,300);
+                    let dot = new300.lastIndexOf('.');
+                    let newText = new300.slice(0,dot+1);
+                    return newText
+                }
+            })
+            .then(summary =>{
+                return summary
+                console.log(summary);
                 // this.setState({
-                //     summary:e.target.id
+                //     summary:summary
                 // })
-                
-                return data
-                
-            }).then(data =>{
-                // this.setState({
-                //     summary: data.childNodes[0].childNodes[0].childNodes[28].childNodes[4].innerHTML
-                // })
-              
-                
-            }
-            )
-    }
-
+            })
+            
+        }
+                     
 
 
     render() {
@@ -51,8 +49,8 @@ class Card extends Component {
                     <CardBox id={artist.name}  >
                         
                       
-                        <div className="front" onMouseEnter={this.onHandleHover}>  <p>{artist.name} {artist.rank}  </p><img src={artist.image} /> </div>
-                        <div className=" back " ><p> Molimo vas napravite novi GitHub repo i korisite da tamo postavite rešenje zadatka zajedno sa uputstvom za pokretanje. Takođe vas molimo da nam link ka GitHub repu pošaljete uz prijavu za posao. </p>
+                        <div className="front" onMouseEnter={this.onHandleHover} id={artist.name} >  <p> {artist.name}  Rank:{artist.rank}  </p> <img   src={artist.image} id={artist.name} /> </div>
+                        <div className=" back "  ><p> Molimo vas napravite novi GitHub repo i korisite da tamo postavite rešenje zadatka zajedno sa uputstvom za pokretanje. Takođe vas molimo da nam link ka GitHub repu pošaljete uz prijavu za posao. </p>
                             <Link to={`/albums/${artist.name}`} ><button className="btn btn-danger">Albums</button> </Link>
                         </div>
                     </CardBox>
